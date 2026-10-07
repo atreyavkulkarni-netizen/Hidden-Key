@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Hidden Key protects private messages inside images">
+    <title>Hidden Key</title>
+    <link
+    rel="icon"
+    type="image/png"
+    href="hidden_key_logo.png"
+>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="glow glowOne"></div>
+    <div class="glow glowTwo"></div>
+
+    <header class="topBar">
+        <a class="brand" href="#">
+    <img
+        class="brandLogo"
+        src="hidden_key_logo.png"
+        alt="Hidden Key logo"
+    >
+
+    <span>Hidden Key</span>
+</a>
+
+        <div class="privacyBadge">
+            <span class="statusDot"></span>
+            Processed privately in your browser
+        </div>
+    </header>
+
+    <main class="mainContent">
+        <section class="heroSection">
+            <div class="eyebrow">
+                <span></span>
+                Private message protection
+            </div>
+
+            <h1>
+                Hide what matters.<br>
+                <strong>Protect what is hidden.</strong>
+            </h1>
+
+            <p class="heroText">
+                Hidden Key combines modern encryption with image
+                steganography to keep private messages safe and discreet.
+            </p>
+
+            <div class="securityFeatures">
+                <span>◈ AES GCM encryption</span>
+                <span>◉ Image steganography</span>
+                <span>✦ No server storage</span>
+            </div>
+        </section>
+
+        <section class="workspaceCard">
+            <div class="modeTabs">
+                <button class="modeTab active" data-mode="encrypt" type="button">
+                    ↗ Encrypt message
+                </button>
+
+                <button class="modeTab" data-mode="decrypt" type="button">
+                    ↙ Decrypt image
+                </button>
+            </div>
+
+            <div class="modePanel active" id="encryptPanel">
+                <div class="panelIntro">
+                    <div>
+                        <p class="panelLabel">ENCRYPTION WORKSPACE</p>
+                        <h2>Conceal a private message</h2>
+                    </div>
+
+                    <span class="stepCounter">01 / 02</span>
+                </div>
+
+                <div class="formGrid">
+                    <div>
+                        <label class="inputLabel" for="encryptImage">
+                            Select a cover image
+                        </label>
+
+                        <label class="uploadBox" for="encryptImage">
+                            <input id="encryptImage" type="file" accept="image/*">
+                            <span class="uploadIcon">↑</span>
+                            <strong>Choose an image</strong>
+                            <small>Images are automatically converted to PNG</small>
+                            <em id="encryptFileName">No image selected</em>
+
+                            <img
+                                id="encryptPreview"
+                                class="imagePreview hidden"
+                                alt="Selected cover image"
+                            >
+
+                            <span
+                                id="encryptImageInfo"
+                                class="imageInfo"
+                            ></span>
+                        </label>
+
+                        <div class="capacityBox hidden" id="capacityBox">
+                            <div class="capacityTop">
+                                <span>Available capacity</span>
+                                <strong id="capacityText">Calculating</strong>
+                            </div>
+
+                            <div class="capacityTrack">
+                                <div class="capacityFill" id="capacityFill"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="inputLabel" for="secretMessage">
+                            Secret message
+                        </label>
+
+                        <div class="textareaWrapper">
+                            <textarea
+                                id="secretMessage"
+                                maxlength="5000"
+                                placeholder="Write the message you want to protect..."
+                            ></textarea>
+
+                            <span class="characterCount">
+                                <span id="messageCount">0</span> / 5000
+                            </span>
+                        </div>
+
+                        <label class="inputLabel passwordLabel" for="encryptPassword">
+                            Password
+                        </label>
+
+                        <div class="passwordWrapper">
+                            <input
+                                id="encryptPassword"
+                                type="password"
+                                placeholder="Create a strong password"
+                            >
+
+                            <button
+                                class="showPasswordButton"
+                                type="button"
+                                data-target="encryptPassword"
+                            >
+                                Show
+                            </button>
+                        </div>
+
+                        <div class="passwordStrength">
+                            <div class="strengthBars">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+
+                            <small id="strengthText">
+                                Use at least 12 characters
+                            </small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="actionArea">
+                    <button class="primaryButton" id="encryptButton" type="button">
+                        <span>Encrypt and hide message</span>
+                        <b>→</b>
+                    </button>
+
+                    <p>
+                        Your message is encrypted before it is hidden inside the image.
+                    </p>
+                </div>
+            </div>
+
+            <div class="modePanel" id="decryptPanel">
+                <div class="panelIntro">
+                    <div>
+                        <p class="panelLabel">DECRYPTION WORKSPACE</p>
+                        <h2>Reveal a protected message</h2>
+                    </div>
+
+                    <span class="stepCounter">02 / 02</span>
+                </div>
+
+                <div class="decryptForm">
+                    <label class="inputLabel" for="decryptImage">
+                        Select an encoded image
+                    </label>
+
+                    <label class="uploadBox" for="decryptImage">
+                        <input id="decryptImage" type="file" accept="image/*">
+                        <span class="uploadIcon">↑</span>
+                        <strong>Choose an encoded image</strong>
+                        <small>Select a PNG created with Hidden Key</small>
+                        <em id="decryptFileName">No image selected</em>
+
+                        <img
+                            id="decryptPreview"
+                            class="imagePreview hidden"
+                            alt="Selected protected image"
+                        >
+
+                        <span
+                            id="decryptImageInfo"
+                            class="imageInfo"
+                        ></span>
+                    </label>
+
+                    <label class="inputLabel passwordLabel" for="decryptPassword">
+                        Password
+                    </label>
+
+                    <div class="passwordWrapper decryptPasswordWrapper">
+                        <input
+                            id="decryptPassword"
+                            type="password"
+                            placeholder="Enter the image password"
+                        >
+
+                        <button
+                            class="showPasswordButton"
+                            type="button"
+                            data-target="decryptPassword"
+                        >
+                            Show
+                        </button>
+                    </div>
+
+                    <button class="primaryButton" id="decryptButton" type="button">
+                        <span>Extract and decrypt message</span>
+                        <b>→</b>
+                    </button>
+                </div>
+            </div>
+
+            <section class="resultCard hidden" id="protectedResult">
+                <div class="resultHeader">
+                    <div>
+                        <p class="panelLabel">PROTECTED IMAGE READY</p>
+                        <h3>Your message is safely hidden</h3>
+                    </div>
+
+                    <span class="resultCheck">✓</span>
+                </div>
+
+                <div class="protectedPreviewBox">
+                    <img id="protectedPreview" alt="Protected image">
+                </div>
+
+                <div class="resultActions">
+                    <a
+                        id="downloadProtectedButton"
+                        class="secondaryButton"
+                        download="hidden_key_protected_image.png"
+                    >
+                        Download protected image
+                    </a>
+
+                    <button
+                        id="clearProtectedButton"
+                        class="ghostButton"
+                        type="button"
+                    >
+                        Clear
+                    </button>
+                </div>
+            </section>
+
+            <section class="decryptedCard hidden" id="decryptedCard">
+                <div class="resultHeader">
+                    <div>
+                        <p class="panelLabel">DECRYPTED MESSAGE</p>
+                        <h3>Your original message</h3>
+                    </div>
+
+                    <span class="resultCheck">✓</span>
+                </div>
+
+                <div class="decryptedMessage" id="decryptedMessage"></div>
+
+                <div class="resultActions">
+                    <button
+                        id="copyMessageButton"
+                        class="secondaryButton"
+                        type="button"
+                    >
+                        Copy message
+                    </button>
+
+                    <button
+                        id="clearDecryptedButton"
+                        class="ghostButton"
+                        type="button"
+                    >
+                        Clear
+                    </button>
+                </div>
+            </section>
+
+            <div class="messageArea hidden" id="messageArea">
+                <span class="messageIcon" id="messageIcon">✓</span>
+
+                <div>
+                    <strong id="messageTitle">Ready</strong>
+                    <p id="messageText">Your result will appear here.</p>
+                </div>
+
+                <button class="closeMessage" id="closeMessage" type="button">
+                    ×
+                </button>
+            </div>
+        </section>
+
+        <section class="howItWorks">
+            <div class="sectionHeading">
+                <p class="panelLabel">HOW IT WORKS</p>
+                <h2>Two layers of protection</h2>
+            </div>
+
+            <div class="processGrid">
+                <article class="processCard">
+                    <span>01</span>
+                    <div>⌁</div>
+                    <h3>Encrypt</h3>
+                    <p>
+                        Your message is protected with password based AES GCM encryption.
+                    </p>
+                </article>
+
+                <article class="processCard">
+                    <span>02</span>
+                    <div>▦</div>
+                    <h3>Hide</h3>
+                    <p>
+                        The encrypted data is embedded into the pixels of your image.
+                    </p>
+                </article>
+
+                <article class="processCard">
+                    <span>03</span>
+                    <div>◌</div>
+                    <h3>Reveal</h3>
+                    <p>
+                        Only the correct password can restore the original message.
+                    </p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <span>Hidden Key</span>
+        <span>Security through encryption and discretion</span>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
